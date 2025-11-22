@@ -30,22 +30,22 @@ const formSchema = z.object({
 
 const volunteers = [
   {
-    name: "John Doe",
+    name: "Shri Manoj Patel",
     role: "Event Coordinator",
     avatar: "https://github.com/shadcn.png",
-    bio: "John is a passionate event planner who loves to bring people together for celebrations.",
+    bio: "Shri Manoj is a passionate event planner who loves to bring people together for celebrations.",
   },
   {
-    name: "Jane Smith",
+    name: "Pt.Sanjay Sharma",
     role: "Community Outreach",
     avatar: "https://github.com/shadcn.png",
-    bio: "Jane is dedicated to connecting with the community and spreading the temple's message.",
+    bio: "Pt. Sanjay is dedicated to connecting with the community and spreading the temple's message.",
   },
   {
-    name: "Peter Jones",
+    name: "Pt. Aniket",
     role: "Temple Maintenance",
     avatar: "https://github.com/shadcn.png",
-    bio: "Peter ensures that the temple is always a clean and welcoming place for everyone.",
+    bio: "Pt. Aniket ensures that the temple is always a clean and welcoming place for everyone.",
   },
 ];
 
@@ -74,7 +74,7 @@ export default function VolunteerPage() {
       <div className="text-center">
         <h1 className="text-4xl font-bold mb-4">Join Our Volunteer Team</h1>
         <p className="text-lg text-gray-700 mb-12">
-          Be a part of our dedicated team and contribute to the temple's activities and community service.
+          Be a part of our dedicated team and contribute to the temple&apos;s activities and community service.
         </p>
       </div>
 

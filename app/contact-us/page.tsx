@@ -112,9 +112,9 @@ export default function ContactUsPage() {
         <div className="max-w-lg mx-auto">
           <h2 className="text-2xl font-bold mb-4">Contact Information</h2>
           <div className="space-y-4">
-            <p><strong>Address:</strong> 123 Temple Street, City, Country</p>
-            <p><strong>Email:</strong> contact@temple.org</p>
-            <p><strong>Phone:</strong> +1 234 567 890</p>
+            <p><strong>Address:</strong> 351 Parkhurst Square, Brampton, Toronto, Ontario, Canada</p>
+            <p><strong>Email:</strong> ChandideviBaglamukhi@gmail.com</p>
+            <p><strong>Phone:</strong> (905)-793-0071 , (647)-354-0093</p>
           </div>
         </div>
       </div>

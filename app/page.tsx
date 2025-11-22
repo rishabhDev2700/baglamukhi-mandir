@@ -11,9 +11,22 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Card} from "@/components/ui/card";
-import { ChevronDown } from 'lucide-react';
+import { Card } from "@/components/ui/card";
+import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import baglamukhi from "@/assets/baglamukhi-devi.jpeg";
+import baglamukhiDevi from "@/assets/baglamukhi.jpeg";
+import om from "@/assets/om.png";
+import image1 from "@/assets/AKG08019.jpg";
+import image2 from "@/assets/AKG08021.jpg";
+import image3 from "@/assets/AKG08029.jpg";
+import image4 from "@/assets/AKG08034.jpg";
+import image5 from "@/assets/AKG08035.jpg";
+import image6 from "@/assets/AKG08036.jpg";
+import image7 from "@/assets/AKG08057.jpg";
+import image8 from "@/assets/AKG08063.jpg";
+
+
+import { Carousel } from '@/components/application/carousel/carousel-base';
 function page() {
   const timetable = [
     { time: "6:00 AM", activity: "Mangala Aarti" },
@@ -134,17 +147,50 @@ function page() {
 
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8">Upcoming Events</h2>
-          {/* Add event cards here */}
+          <h2 className="text-3xl font-bold text-center mb-8">Gallery</h2>
+          <Carousel.Root>
+            <Carousel.Content className='overflow-hidden'>
+              <Carousel.Item className='h-[500px] flex items-center justify-center'>
+                <Image src={image1} alt="Baglamukhi Devi" className="object-contain" />
+              </Carousel.Item>
+              <Carousel.Item className='h-[500px] flex items-center justify-center'>
+                <Image src={image2} alt="Baglamukhi" className="object-contain" />
+              </Carousel.Item>
+              <Carousel.Item className='h-[500px] flex items-center justify-center'>
+                <Image src={image3} alt="Om" className="object-contain" />
+              </Carousel.Item>
+              <Carousel.Item className='h-[500px] flex items-center justify-center'>
+                <Image src={image4} alt="Image 1" className="object-contain" />
+              </Carousel.Item>
+              <Carousel.Item className='h-[500px] flex items-center justify-center'>
+                <Image src={image5} alt="Image 2" className="object-contain" />
+              </Carousel.Item>
+                    <Carousel.Item className='h-[500px] flex items-center justify-center'>
+                <Image src={image6} alt="Image 2" className="object-contain" />
+              </Carousel.Item>
+                    <Carousel.Item className='h-[500px] flex items-center justify-center'>
+                <Image src={image7} alt="Image 2" className="object-contain" />
+              </Carousel.Item>
+               <Carousel.Item className='h-[500px] flex items-center justify-center'>
+                <Image src={image8} alt="Image 2" className="object-contain" />
+              </Carousel.Item>
+              
+            </Carousel.Content>
+            <Carousel.PrevTrigger className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">
+              <ChevronLeft size={24} />
+            </Carousel.PrevTrigger>
+            <Carousel.NextTrigger className="absolute top-1/2 right-4 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">
+              <ChevronRight size={24} />
+            </Carousel.NextTrigger>
+          </Carousel.Root>
         </div>
       </section>
 
-      <section className="py-16 bg-gray-100">
+      {/* <section className="py-16 bg-gray-100">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-8">Our Services</h2>
-          {/* Add service highlights here */}
         </div>
-      </section>
+      </section> */}
     </main>
   )
 }

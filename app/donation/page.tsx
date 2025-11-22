@@ -15,6 +15,9 @@ export default function DonationPage() {
         <p className="text-lg text-gray-700 mb-8">
           Your generous donations help us maintain the temple, perform daily rituals, and serve the community. Every contribution, big or small, makes a difference.
         </p>
+        <div>
+          You can 
+        </div>
         <div className="bg-gray-100 p-8 rounded-lg">
           <h2 className="text-2xl font-bold mb-4">Donation Gateway</h2>
           <p className="text-gray-600 mb-6">

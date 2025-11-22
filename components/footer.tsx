@@ -58,9 +58,9 @@ export function Footer() {
           </div>
           <div>
             <h3 className="text-lg font-bold mb-4">Contact Info</h3>
-            <p className="text-gray-400">123 Temple Street, City, Country</p>
-            <p className="text-gray-400">contact@temple.org</p>
-            <p className="text-gray-400">+1 234 567 890</p>
+            <p className="text-gray-400"> 351 Parkhurst Square, Brampton, Toronto, Ontario, Canada</p>
+            <p className="text-gray-400">ChandideviBaglamukhi@gmail.com</p>
+            <p className="text-gray-400">(905)-793-0071 , (647)-354-0093</p>
           </div>
           <div>
             <h3 className="text-lg font-bold mb-4">Follow Us</h3>

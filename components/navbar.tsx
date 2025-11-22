@@ -23,7 +23,7 @@ function Navbar() {
   ];
 
   return (
-    <div className='w-full fixed bg-white/60 backdrop-blur-md top-0 z-50 flex justify-between items-center px-4 md:px-8 lg:px-16 py-4'>
+    <div className='w-full fixed bg-white/60 backdrop-blur-md shadow-md shadow-black/10 top-0 z-50 flex justify-between items-center px-4 md:px-8 lg:px-16 py-4'>
       <header className='flex items-center'>
         <Link href="/" className="flex items-center group">
           <Image src={om} className='w-12 md:w-16 transition-transform' alt='OM' />
@@ -37,8 +37,8 @@ function Navbar() {
           <Link 
             key={link.href} 
             className='relative px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors mr-4
-                       after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] 
-                       after:bg-current after:transition-all hover:after:w-full' 
+                       after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 
+                       after:bg-red-500 after:transition-all hover:after:w-full' 
             href={link.href}
           >
             {link.label}
