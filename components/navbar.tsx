@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Sheet,
   SheetContent,
@@ -15,6 +15,7 @@ import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import { usePathname } from 'next/navigation';
 
 function Navbar() {
+  const [sheetOpen,setSheetOpen] = useState(false)
   const pathname = usePathname();
   const navLinks = [
     { href: "/", label: "Home" },
@@ -44,32 +45,35 @@ function Navbar() {
                        after:bg-red-500 after:transition-all hover:after:w-full
                        ${pathname === link.href ? 'text-red-500 after:w-full' : ''}`} 
             href={link.href}
-          >
+            >
             {link.label}
           </Link>
         ))}
       </nav>
-      <Sheet>
+      <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
         <SheetTrigger className='lg:hidden'>
           <Menu size={32} className="text-black" />
         </SheetTrigger>
         <SheetContent className='px-0'>
           <SheetHeader className="bg-gray-100 border-b p-6 text-center">
+            <SheetTitle>
             <Link href="/" className="flex flex-col items-center mb-4">
               <Image src={om} className="w-16 h-16 mb-2 object-contain" alt="OM" />
               <span className="text-xl font-bold">Shri Baglamukhi Mandir</span>
             </Link>
+            </SheetTitle>
           </SheetHeader>
           <nav className='flex flex-col items-start mt-8 space-y-4 px-6'>
             {navLinks.map((link) => (
               <Link 
-                key={link.href} 
-                href={link.href} 
-                className={`relative text-xl font-bold text-gray-800 hover:text-gray-900 w-full text-left p-2 
-                           after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 
-                           after:bg-red-500 after:transition-all hover:after:w-full
-                           ${pathname === link.href ? 'text-red-500 after:w-full' : ''}`}
-              >
+              key={link.href} 
+              href={link.href} 
+              className={`relative text-xl font-bold text-gray-800 hover:text-gray-900 w-full text-left p-2 
+                after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 
+                after:bg-red-500 after:transition-all hover:after:w-full
+                ${pathname === link.href ? 'text-red-500 after:w-full' : ''}`}
+                onClick={()=>setSheetOpen(false)}
+                >
                 {link.label}
               </Link>
             ))}
