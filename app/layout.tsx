@@ -3,6 +3,7 @@ import "./globals.css";
 import { Footer } from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { PageTransition } from "@/components/page-transition";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Shri Baglamukhi Mandir",
@@ -24,6 +25,7 @@ export default function RootLayout({
           <PageTransition>{children}</PageTransition>
         </main>
         <Footer />
+        <Toaster position="top-center" richColors />
       </body>
     </html>
   );

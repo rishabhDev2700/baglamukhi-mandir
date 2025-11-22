@@ -65,6 +65,10 @@ export default function PoojaBookingPage() {
     >
       <div className="max-w-2xl mx-auto">
         <h1 className="text-4xl font-bold text-center mb-8">Pooja Booking</h1>
+        <p className="border p-4 my-4 rounded-2xl shadow-md shadow-black/5 bg-amber-500 text-white ">
+          To book a grah pravesh, birthday or any other puja.<br/>
+          We also do baglamukhi hawan, Das Mahavidya Paths and Baglamukhi sahasra naam path
+        </p>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField

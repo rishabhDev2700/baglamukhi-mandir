@@ -65,13 +65,7 @@ export function Footer() {
           <div>
             <h3 className="text-lg font-bold mb-4">Follow Us</h3>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white">
-                <Facebook size={24} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white">
-                <Twitter size={24} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white">
+              <a href="https://www.instagram.com/baglamukhi_temple_brampton" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
                 <Instagram size={24} />
               </a>
             </div>

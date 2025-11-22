@@ -161,7 +161,7 @@ const CarouselContent = ({ className, overflowHidden = true, ...props }: Carouse
 };
 
 const CarouselItem = ({ className, ...props }: ComponentPropsWithRef<"div">) => {
-    return <div role="group" aria-roledescription="slide" className={cn("min-w-0 shrink-0 grow-0 basis-full", className)} {...props} />;
+    return <div role="group" aria-roledescription="slide" className={cn("min-w-0 shrink-0 grow-0 basis-full relative", className)} {...props} />;
 };
 
 interface TriggerRenderProps {

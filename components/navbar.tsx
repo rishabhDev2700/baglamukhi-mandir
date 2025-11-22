@@ -1,3 +1,4 @@
+"use client"
 import Link from 'next/link'
 import React from 'react'
 import {
@@ -11,8 +12,10 @@ import { Menu } from 'lucide-react'
 import Image from 'next/image'
 import om from "@/assets/om.png"
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
+import { usePathname } from 'next/navigation';
 
 function Navbar() {
+  const pathname = usePathname();
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/events", label: "Events" },
@@ -23,11 +26,11 @@ function Navbar() {
   ];
 
   return (
-    <div className='w-full fixed bg-white/60 backdrop-blur-md shadow-md shadow-black/10 top-0 z-50 flex justify-between items-center px-4 md:px-8 lg:px-16 py-4'>
+    <div className='w-full fixed bg-white/60 backdrop-blur-md shadow-md shadow-black/10 top-0 z-50 flex justify-between items-center px-4 md:px-8 lg:px-16 py-6'>
       <header className='flex items-center'>
         <Link href="/" className="flex items-center group">
           <Image src={om} className='w-12 md:w-16 transition-transform' alt='OM' />
-          <h1 className='font-main text-lg md:text-xl ml-2'>
+          <h1 className='font-main text-lg font-bold md:text-xl ml-2'>
             Shri Baglamukhi Mandir
           </h1>
         </Link>
@@ -36,9 +39,10 @@ function Navbar() {
         {navLinks.map((link) => (
           <Link 
             key={link.href} 
-            className='relative px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors mr-4
+            className={`relative px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors mr-4
                        after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 
-                       after:bg-red-500 after:transition-all hover:after:w-full' 
+                       after:bg-red-500 after:transition-all hover:after:w-full
+                       ${pathname === link.href ? 'text-red-500 after:w-full' : ''}`} 
             href={link.href}
           >
             {link.label}
@@ -51,9 +55,6 @@ function Navbar() {
         </SheetTrigger>
         <SheetContent className='px-0'>
           <SheetHeader className="bg-gray-100 border-b p-6 text-center">
-            <VisuallyHidden.Root>
-              <SheetTitle>Mobile Navigation</SheetTitle>
-            </VisuallyHidden.Root>
             <Link href="/" className="flex flex-col items-center mb-4">
               <Image src={om} className="w-16 h-16 mb-2 object-contain" alt="OM" />
               <span className="text-xl font-bold">Shri Baglamukhi Mandir</span>
@@ -64,9 +65,10 @@ function Navbar() {
               <Link 
                 key={link.href} 
                 href={link.href} 
-                className='relative text-xl font-bold text-gray-800 hover:text-gray-900 w-full text-left p-2 
-                           after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[3px] 
-                           after:bg-current after:transition-all hover:after:w-full'
+                className={`relative text-xl font-bold text-gray-800 hover:text-gray-900 w-full text-left p-2 
+                           after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 
+                           after:bg-red-500 after:transition-all hover:after:w-full
+                           ${pathname === link.href ? 'text-red-500 after:w-full' : ''}`}
               >
                 {link.label}
               </Link>

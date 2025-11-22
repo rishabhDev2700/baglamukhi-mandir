@@ -14,8 +14,6 @@ import {
 import { Card } from "@/components/ui/card";
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import baglamukhi from "@/assets/baglamukhi-devi.jpeg";
-import baglamukhiDevi from "@/assets/baglamukhi.jpeg";
-import om from "@/assets/om.png";
 import image1 from "@/assets/AKG08019.jpg";
 import image2 from "@/assets/AKG08021.jpg";
 import image3 from "@/assets/AKG08029.jpg";
@@ -27,7 +25,7 @@ import image8 from "@/assets/AKG08063.jpg";
 
 
 import { Carousel } from '@/components/application/carousel/carousel-base';
-function page() {
+export default function Page() {
   const timetable = [
     { time: "6:00 AM", activity: "Mangala Aarti" },
     { time: "7:00 AM", activity: "Morning Pooja" },
@@ -43,7 +41,7 @@ function page() {
     <main className='relative'>
       <div className="relative h-screen w-full overflow-hidden">
         <motion.div style={{ y }} className="absolute inset-0">
-          <Image className='w-full h-full object-cover' src="/hero.jpg" width={10000} height={10000} alt="baglamukhi mata mandir"/>
+          <Image className='w-full h-full object-cover' src="/hero.jpg" width={10000} height={10000} quality={75} alt="baglamukhi mata mandir"/>
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
         </motion.div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white p-4">
@@ -148,51 +146,45 @@ function page() {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-8">Gallery</h2>
-          <Carousel.Root>
-            <Carousel.Content className='overflow-hidden'>
-              <Carousel.Item className='h-[500px] flex items-center justify-center'>
-                <Image src={image1} alt="Baglamukhi Devi" className="object-contain" />
-              </Carousel.Item>
-              <Carousel.Item className='h-[500px] flex items-center justify-center'>
-                <Image src={image2} alt="Baglamukhi" className="object-contain" />
-              </Carousel.Item>
-              <Carousel.Item className='h-[500px] flex items-center justify-center'>
-                <Image src={image3} alt="Om" className="object-contain" />
-              </Carousel.Item>
-              <Carousel.Item className='h-[500px] flex items-center justify-center'>
-                <Image src={image4} alt="Image 1" className="object-contain" />
-              </Carousel.Item>
-              <Carousel.Item className='h-[500px] flex items-center justify-center'>
-                <Image src={image5} alt="Image 2" className="object-contain" />
-              </Carousel.Item>
-                    <Carousel.Item className='h-[500px] flex items-center justify-center'>
-                <Image src={image6} alt="Image 2" className="object-contain" />
-              </Carousel.Item>
-                    <Carousel.Item className='h-[500px] flex items-center justify-center'>
-                <Image src={image7} alt="Image 2" className="object-contain" />
-              </Carousel.Item>
-               <Carousel.Item className='h-[500px] flex items-center justify-center'>
-                <Image src={image8} alt="Image 2" className="object-contain" />
-              </Carousel.Item>
-              
-            </Carousel.Content>
-            <Carousel.PrevTrigger className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">
-              <ChevronLeft size={24} />
-            </Carousel.PrevTrigger>
-            <Carousel.NextTrigger className="absolute top-1/2 right-4 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">
-              <ChevronRight size={24} />
-            </Carousel.NextTrigger>
-          </Carousel.Root>
+       <Carousel.Root opts={{ loop: true }}>
+  <Carousel.Content>
+    {[
+      image1, image2, image3, image4,
+      image5, image6, image7, image8
+    ].map((img, i) => (
+      <Carousel.Item
+        key={i}
+        className="min-w-full h-[700px] relative flex items-center justify-center"
+      >
+        <Image
+          src={img}
+          alt={`Slide ${i}`}
+          fill
+          quality={75}
+          className="object-contain rounded-lg"
+        />
+      </Carousel.Item>
+    ))}
+  </Carousel.Content>
+
+  <Carousel.PrevTrigger className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">
+    <ChevronLeft size={24} />
+  </Carousel.PrevTrigger>
+
+  <Carousel.NextTrigger className="absolute top-1/2 right-4 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">
+    <ChevronRight size={24} />
+  </Carousel.NextTrigger>
+</Carousel.Root>
+
         </div>
       </section>
 
       {/* <section className="py-16 bg-gray-100">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-8">Our Services</h2>
-        </div>
+w        </div>
       </section> */}
     </main>
   )
 }
 
-export default page
