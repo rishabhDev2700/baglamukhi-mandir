@@ -1,0 +1,44 @@
+:root {
+  // Amber Shades (Adjust these as needed for exact visual match to Tailwind)
+  --amber-50: oklch(97% 0.03 80);
+  --amber-100: oklch(92% 0.06 80);
+  --amber-200: oklch(85% 0.1 75);
+  --amber-300: oklch(77% 0.14 70);
+  --amber-400: oklch(69% 0.18 65);
+  --amber-500: oklch(61% 0.22 60);
+  --amber-600: oklch(53% 0.23 55);
+  --amber-700: oklch(45% 0.22 50);
+  --amber-800: oklch(37% 0.2 45);
+  --amber-900: oklch(29% 0.18 40);
+
+  // Override Payload's theme variables
+  --theme-primary: var(--amber-500);
+  --theme-primary-50: var(--amber-50);
+  --theme-primary-100: var(--amber-100);
+  --theme-primary-200: var(--amber-200);
+  --theme-primary-300: var(--amber-300);
+  --theme-primary-400: var(--amber-400);
+  --theme-primary-500: var(--amber-500);
+  --theme-primary-600: var(--amber-600);
+  --theme-primary-700: var(--amber-700);
+  --theme-primary-800: var(--amber-800);
+  --theme-primary-900: var(--amber-900);
+
+  // Also override accent colors
+  --theme-accent: var(--amber-500);
+  --theme-accent-50: var(--amber-50);
+  --theme-accent-100: var(--amber-100);
+  --theme-accent-200: var(--amber-200);
+  --theme-accent-300: var(--amber-300);
+  --theme-accent-400: var(--amber-400);
+  --theme-accent-500: var(--amber-500);
+  --theme-accent-600: var(--amber-600);
+  --theme-accent-700: var(--amber-700);
+  --theme-accent-800: var(--amber-800);
+  --theme-accent-900: var(--amber-900);
+}
+
+html[data-theme='dark'] {
+  // Dark mode specific overrides, if needed.
+  // Payload handles many inversions automatically.
+}

@@ -1,0 +1,59 @@
+.dashboard-container {
+  padding: 2rem;
+
+  h1 {
+    margin-bottom: 2rem;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+
+    .stat-card {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      border-radius: 5px;
+
+      h3 {
+        margin: 0;
+      }
+
+      p {
+        font-size: 2rem;
+        margin: 0.5rem 0;
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--theme-text-color-link); // Using Payload's theme variable
+      }
+    }
+  }
+
+  .recent-events {
+    h2 {
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin-bottom: 0.5rem;
+
+        a {
+          text-decoration: none;
+          color: var(--theme-text-color-link);
+        }
+
+        span {
+          color: #888;
+          margin-left: 1rem;
+        }
+      }
+    }
+  }
+}

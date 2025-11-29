@@ -4,7 +4,17 @@ import Image from "next/image";
 import om from "@/assets/om.png";
 import { Facebook, Twitter, Instagram } from "lucide-react";
 
-export function Footer() {
+type SocialLink = {
+  label: string;
+  link: string;
+};
+
+type FooterProps = {
+  copyright: string;
+  socialLinks: SocialLink[];
+};
+
+export function Footer({ copyright, socialLinks }: FooterProps) {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -65,15 +75,19 @@ export function Footer() {
           <div>
             <h3 className="text-lg font-bold mb-4">Follow Us</h3>
             <div className="flex space-x-4">
-              <a href="https://www.instagram.com/baglamukhi_temple_brampton" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-                <Instagram size={24} />
-              </a>
+              {socialLinks.map((social) => (
+                <a key={social.link} href={social.link} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
+                  {social.label === 'Instagram' && <Instagram size={24} />}
+                  {social.label === 'Facebook' && <Facebook size={24} />}
+                  {social.label === 'Twitter' && <Twitter size={24} />}
+                </a>
+              ))}
             </div>
           </div>
         </div>
         <div className="flex justify-between items-center mt-8 pt-8 border-t border-gray-800">
           <p className="text-gray-500">
-            &copy; {new Date().getFullYear()} The Temple. All Rights Reserved.
+            {copyright}
           </p>
           <button
             onClick={scrollToTop}
