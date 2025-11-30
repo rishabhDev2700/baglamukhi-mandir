@@ -1,22 +1,8 @@
 import { getPayloadClient } from '@/lib/payload'
 import { EventsList, type Event } from '@/components/application/events-list'
 import { type Event as PayloadEvent } from '@/payload-types'
+import { serializeLexicalToHtml } from '@/lib/richtext' // Import the new serializer
 
-// Basic function to serialize Payload's rich text to a string.
-// This is a simplified example. For a production app, you'd want a more robust serializer.
-const serializeRichText = (richText: any): string => {
-  if (!richText || !richText.root || !richText.root.children) {
-    return ''
-  }
-  return richText.root.children
-    .map((node: any) => {
-      if (node.type === 'p' && node.children) {
-        return node.children.map((leaf: any) => leaf.text).join('')
-      }
-      return ''
-    })
-    .join('\n')
-}
 async function EventsPage() {
   const payload = await getPayloadClient()
 
@@ -28,7 +14,7 @@ async function EventsPage() {
   const events: Event[] = (docs as PayloadEvent[]).map((doc) => ({
     id: doc.id,
     name: doc.name,
-    description: serializeRichText(doc.description),
+    description: serializeLexicalToHtml(doc.description), // Use the new serializer
     date: doc.date,
     time: doc.time || undefined,
     location: doc.location || undefined,

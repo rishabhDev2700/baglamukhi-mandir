@@ -12,7 +12,7 @@ import { ContactForms } from './payload/collections/ContactForms'
 import { Pages } from './payload/collections/Pages'
 import { DailyTimetable } from './payload/collections/DailyTimetable'
 import { Media } from './payload/collections/Media'
-
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 // Globals
 import { Header } from './payload/globals/Header'
 import { Footer } from './payload/globals/Footer'
@@ -31,6 +31,16 @@ if (!process.env.PAYLOAD_SECRET) {
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
   editor: lexicalEditor(),
+  plugins:[
+    vercelBlobStorage({
+      enabled:true,
+      collections:{
+        media:true,
+      },
+      clientUploads:true,
+      token: process.env.BLOB_READ_WRITE_TOKEN
+    })
+  ],
 
   // Define and configure your collections in this array
   collections: [
