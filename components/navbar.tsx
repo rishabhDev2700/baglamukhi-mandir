@@ -32,7 +32,7 @@ function Navbar({ navLinks = [] }: NavbarProps) {
       <header className='flex items-center'>
         <Link href="/" className="flex items-center group">
           <Image src={om} className='w-12 md:w-16 transition-transform' alt='OM' />
-          <h1 className='font-main text-lg font-bold md:text-xl ml-2'>
+          <h1 className='font-main text-red-500 text-lg font-semibold md:text-xl ml-2'>
             Shri Baglamukhi Mandir
           </h1>
         </Link>

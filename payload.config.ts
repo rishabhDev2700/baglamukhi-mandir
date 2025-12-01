@@ -4,19 +4,20 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import sharp from 'sharp'
 
 // Collections
+import { PoojaOptions } from './payload/collections/PoojaOptions'
 import { Events } from './payload/collections/Events'
 import { PoojaBookings } from './payload/collections/PoojaBookings'
 import { Volunteers } from './payload/collections/Volunteers'
 import { Donations } from './payload/collections/Donations'
 import { ContactForms } from './payload/collections/ContactForms'
 import { Pages } from './payload/collections/Pages'
-import { DailyTimetable } from './payload/collections/DailyTimetable'
 import { Media } from './payload/collections/Media'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 // Globals
 import { Header } from './payload/globals/Header'
 import { Footer } from './payload/globals/Footer'
 import { Gallery } from './payload/globals/Gallery'
+import { DailyTimetable } from './payload/globals/DailyTimetable'
 import path from 'path'
 import { fileURLToPath } from 'node:url'
 const filename = fileURLToPath(import.meta.url)
@@ -44,13 +45,13 @@ export default buildConfig({
 
   // Define and configure your collections in this array
   collections: [
+    PoojaOptions,
     Events,
     PoojaBookings,
     Volunteers,
     Donations,
     ContactForms,
     Pages,
-    DailyTimetable,
     Media,
   ],
 
@@ -58,6 +59,7 @@ export default buildConfig({
     Header,
     Footer,
     Gallery,
+    DailyTimetable,
   ],
 
   // Your Payload secret - should be a complex and secure string, unguessable
@@ -73,6 +75,12 @@ export default buildConfig({
   // you don't need it!
   sharp,
   admin: {
+    meta:{title:"Admin",icons:[
+      {
+        rel:"icon",
+        url:"/om.svg"
+      }
+    ],titleSuffix:""},
     importMap: {
       baseDir: path.resolve(dirname),
     },

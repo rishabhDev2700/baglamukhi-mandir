@@ -22,7 +22,8 @@ export const PoojaBookings: CollectionConfig = {
     },
     {
       name: 'pooja',
-      type: 'text',
+      type: 'relationship',
+      relationTo: 'pooja-options',
       required: true,
     },
     {

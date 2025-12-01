@@ -50,8 +50,8 @@ export function Footer({ copyright, socialLinks }: FooterProps) {
                 </Link>
               </li>
               <li>
-                <Link href="/donation" className="hover:text-gray-300">
-                  Donation
+                <Link href="/donate" className="hover:text-gray-300">
+                  Donate
                 </Link>
               </li>
               <li>

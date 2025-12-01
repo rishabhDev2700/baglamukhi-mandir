@@ -1,62 +1,27 @@
 "use client";
 import Image from 'next/image'
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Card } from "@/components/ui/card";
-import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import baglamukhi from "@/assets/baglamukhi-devi.jpeg";
-import { Carousel } from '@/components/application/carousel/carousel-base';
 
-export type TimetableItem = {
-  id: string; // Added from Payload TypeWithID
-  time: string;
-  activity: string;
-};
+import { Gallery } from './gallery';
+import { Timetable } from './timetable';
+import Marquee from '../marquee';
 
-export type GalleryImageItem = {
-  id: string;
-  alt: string;
-  url: string;
-  filename: string;
-  mimeType: string;
-  filesize: number;
-  width: number;
-  height: number;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type GalleryImage = {
-  image: GalleryImageItem;
-};
-
-type HomePageProps = {
-  timetable: TimetableItem[];
-  galleryImages: GalleryImage[];
-};
-
-export function HomePage({ timetable, galleryImages }: HomePageProps) {
+export function HomePage() {
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-
   return (
     <main className='relative'>
       <div className="relative h-screen w-full overflow-hidden">
         <motion.div style={{ y }} className="absolute inset-0">
-          <Image className='w-full h-full object-cover' src="/hero.jpg" width={10000} height={10000} quality={75} alt="baglamukhi mata mandir"/>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+          <Image className='w-full h-full object-cover' src="/hero.jpg" width={10000} height={10000} quality={75} alt="baglamukhi mata mandir" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent" />
         </motion.div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white p-4">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -64,7 +29,7 @@ export function HomePage({ timetable, galleryImages }: HomePageProps) {
           >
             Shri Baglamukhi Mandir
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -88,12 +53,13 @@ export function HomePage({ timetable, galleryImages }: HomePageProps) {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, repeatType: "loop" }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
+          className="absolute bottom-24 left-1/2 -translate-x-1/2"
         >
           <ChevronDown size={48} className="text-white" />
         </motion.div>
+        <Marquee
+       text="ॐ ह्लीं बगलामुखी सर्व दुष्टानां वाचं मुखं पदं स्तम्भय जिव्हां कीलय बुद्धिं विनाशय ह्लीं ॐ स्वाहा ॥" />
       </div>
-
       <section className="py-16 bg-white overflow-x-hidden">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
@@ -123,82 +89,9 @@ export function HomePage({ timetable, galleryImages }: HomePageProps) {
         </div>
       </section>
 
-      <section className="py-16 bg-gray-100">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8">Daily Timetable</h2>
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-2xl mx-auto"
-          >
-            <Card className="p-4 bg-gradient-to-r from-amber-500 to-red-500 text-white">
-              {timetable.length > 0 ? (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="w-[100px] text-lg font-bold text-white">Time</TableHead>
-                      <TableHead className="text-lg font-bold text-white">Activity</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {timetable.map((item, index) => (
-                      <TableRow key={index} className="hover:bg-white/20 transition-colors">
-                        <TableCell className="font-medium">{item.time}</TableCell>
-                        <TableCell>{item.activity}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              ) : (
-                <div className="text-center p-8">
-                  <p>No timetable to show.</p>
-                </div>
-              )}
-            </Card>
-          </motion.div>
-        </div>
-      </section>
+      <Timetable />
 
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8">Gallery</h2>
-          {galleryImages.length > 0 ? (
-            <Carousel.Root opts={{ loop: true }}>
-              <Carousel.Content>
-                {galleryImages.map((img, i) => (
-                  <Carousel.Item
-                    key={i}
-                    className="min-w-full h-[700px] relative flex items-center justify-center"
-                  >
-                    <Image
-                      src={img.image.url}
-                      alt={img.image.alt}
-                      fill
-                      quality={75}
-                      className="object-contain rounded-lg"
-                    />
-                  </Carousel.Item>
-                ))}
-              </Carousel.Content>
-
-              <Carousel.PrevTrigger className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">
-                <ChevronLeft size={24} />
-              </Carousel.PrevTrigger>
-
-              <Carousel.NextTrigger className="absolute top-1/2 right-4 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">
-                <ChevronRight size={24} />
-              </Carousel.NextTrigger>
-            </Carousel.Root>
-          ) : (
-            <div className="text-center">
-              <Card className="p-8">
-                <p>No images to show in the gallery.</p>
-              </Card>
-            </div>
-          )}
-        </div>
-      </section>
+      <Gallery />
     </main>
   )
 }

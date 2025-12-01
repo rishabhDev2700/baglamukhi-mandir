@@ -67,13 +67,13 @@ export interface Config {
   };
   blocks: {};
   collections: {
+    'pooja-options': PoojaOption;
     events: Event;
     'pooja-bookings': PoojaBooking;
     volunteers: Volunteer;
     donations: Donation;
     'contact-forms': ContactForm;
     pages: Page;
-    'daily-timetable': DailyTimetable;
     media: Media;
     'payload-kv': PayloadKv;
     users: User;
@@ -83,13 +83,13 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
+    'pooja-options': PoojaOptionsSelect<false> | PoojaOptionsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     'pooja-bookings': PoojaBookingsSelect<false> | PoojaBookingsSelect<true>;
     volunteers: VolunteersSelect<false> | VolunteersSelect<true>;
     donations: DonationsSelect<false> | DonationsSelect<true>;
     'contact-forms': ContactFormsSelect<false> | ContactFormsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
-    'daily-timetable': DailyTimetableSelect<false> | DailyTimetableSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -105,11 +105,13 @@ export interface Config {
     header: Header;
     footer: Footer;
     gallery: Gallery;
+    'daily-timetable': DailyTimetable;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     gallery: GallerySelect<false> | GallerySelect<true>;
+    'daily-timetable': DailyTimetableSelect<false> | DailyTimetableSelect<true>;
   };
   locale: null;
   user: User & {
@@ -137,6 +139,31 @@ export interface UserAuthOperations {
     email: string;
     password: string;
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pooja-options".
+ */
+export interface PoojaOption {
+  id: string;
+  name: string;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -175,7 +202,7 @@ export interface PoojaBooking {
   name: string;
   email: string;
   phone?: string | null;
-  pooja: string;
+  pooja: string | PoojaOption;
   date?: string | null;
   message?: string | null;
   updatedAt: string;
@@ -250,22 +277,11 @@ export interface Page {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "daily-timetable".
- */
-export interface DailyTimetable {
-  id: string;
-  time: string;
-  activity: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
   id: string;
-  alt?: string | null;
+  alt: string;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -353,6 +369,10 @@ export interface PayloadLockedDocument {
   id: string;
   document?:
     | ({
+        relationTo: 'pooja-options';
+        value: string | PoojaOption;
+      } | null)
+    | ({
         relationTo: 'events';
         value: string | Event;
       } | null)
@@ -375,10 +395,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: string | Page;
-      } | null)
-    | ({
-        relationTo: 'daily-timetable';
-        value: string | DailyTimetable;
       } | null)
     | ({
         relationTo: 'media';
@@ -429,6 +445,16 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pooja-options_select".
+ */
+export interface PoojaOptionsSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -503,16 +529,6 @@ export interface PagesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   content?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "daily-timetable_select".
- */
-export interface DailyTimetableSelect<T extends boolean = true> {
-  time?: T;
-  activity?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -680,6 +696,22 @@ export interface Gallery {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "daily-timetable".
+ */
+export interface DailyTimetable {
+  id: string;
+  timetable?:
+    | {
+        time: string;
+        activity: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -720,6 +752,22 @@ export interface GallerySelect<T extends boolean = true> {
     | T
     | {
         image?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "daily-timetable_select".
+ */
+export interface DailyTimetableSelect<T extends boolean = true> {
+  timetable?:
+    | T
+    | {
+        time?: T;
+        activity?: T;
         id?: T;
       };
   updatedAt?: T;

@@ -2,6 +2,9 @@ import { GlobalConfig } from 'payload'
 
 export const Gallery: GlobalConfig = {
   slug: 'gallery',
+  access: {
+    read: () => true,
+  },
   fields: [
     {
       name: 'images',
@@ -12,6 +15,9 @@ export const Gallery: GlobalConfig = {
           type: 'upload',
           relationTo: 'media',
           required: true,
+          access:{
+            read:()=>true
+          }
         },
       ],
     },

@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Yatra+One&display=swap');
+
+.marquee-wrapper {
+font-family: "Yatra One", system-ui;  display: inline-block;
+  animation: marquee 120s linear infinite;
+}
+
+.marquee-wrapper:nth-child(2) {
+  animation: marquee2 120s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes marquee2 {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
