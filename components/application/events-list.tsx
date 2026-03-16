@@ -63,17 +63,40 @@ export function EventsList({ upcomingEvents, pastEvents }: EventsListProps) {
   return (
     <>
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="container mx-auto px-4 py-24"
+      className="min-h-screen"
     >
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Temple Events</h1>
-        <p className="text-lg text-gray-700 mb-12">
+      {/* Hero */}
+      <div className="bg-linear-to-br from-amber-950 via-yellow-900 to-amber-800 pt-40 pb-20 px-4 text-center">
+        <motion.p
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-yellow-400 uppercase tracking-widest text-sm font-semibold mb-3"
+        >
+          Shri Baglamukhi Mandir
+        </motion.p>
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="text-4xl md:text-5xl font-bold text-white mb-4"
+        >
+          Temple Events
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35 }}
+          className="text-amber-200/80 text-lg max-w-2xl mx-auto"
+        >
           Stay connected with our vibrant community through a variety of cultural and spiritual events.
-        </p>
+        </motion.p>
       </div>
+
+      <div className="container mx-auto px-4 py-16">
 
       {/* Search Bar */}
       <div className="max-w-md mx-auto mb-12">
@@ -93,106 +116,118 @@ export function EventsList({ upcomingEvents, pastEvents }: EventsListProps) {
             filteredUpcomingEvents.map((event, index) => (
               <motion.div
                 key={event.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
+                whileHover={{ y: -4 }}
+                className="group h-full"
               >
-                <Card>
-                  <CardHeader>
-                    <CardTitle>{event.name}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center text-gray-600 mb-2">
-                      <CalendarIcon className="w-4 h-4 mr-2" />
-                      <span suppressHydrationWarning>{new Date(event.date).toLocaleDateString()}</span>
+                <div className="h-full flex flex-col bg-white rounded-3xl border border-amber-200/50 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(251,191,36,0.3)] transition-all duration-300 overflow-hidden group-hover:border-amber-300">
+                  <div className="h-1.5 w-full bg-linear-to-r from-yellow-500 via-amber-400 to-yellow-600" />
+                  <div className="flex flex-col flex-1 p-8">
+                    <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-linear-to-r from-gray-900 to-gray-600 mb-6">{event.name}</h3>
+                    
+                    <div className="space-y-3 mb-6">
+                      <div className="flex items-center text-gray-600 font-medium">
+                        <div className="w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center mr-3 border border-amber-100">
+                           <CalendarIcon className="w-4 h-4 text-amber-600" />
+                        </div>
+                        <span suppressHydrationWarning>{new Date(event.date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                      </div>
+                      {event.time && (
+                        <div className="flex items-center text-gray-600">
+                          <div className="w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center mr-3 border border-amber-100">
+                             <ClockIcon className="w-4 h-4 text-amber-600" />
+                          </div>
+                          <span>{event.time}</span>
+                        </div>
+                      )}
+                      {event.location && (
+                        <div className="flex items-center text-gray-600">
+                          <div className="w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center mr-3 border border-amber-100">
+                             <MapPinIcon className="w-4 h-4 text-amber-600" />
+                          </div>
+                          <span>{event.location}</span>
+                        </div>
+                      )}
                     </div>
-                    {event.time && (
-                      <div className="flex items-center text-gray-600 mb-2">
-                        <ClockIcon className="w-4 h-4 mr-2" />
-                        <span>{event.time}</span>
-                      </div>
-                    )}
-                    {event.location && (
-                      <div className="flex items-center text-gray-600 mb-4">
-                        <MapPinIcon className="w-4 h-4 mr-2" />
-                        <span>{event.location}</span>
-                      </div>
-                    )}
-                    <div className="prose prose-sm max-w-none mb-4" dangerouslySetInnerHTML={{ __html: truncateDescription(event.description, 150) }} />
+                    
+                    <div className="text-gray-600 leading-relaxed mb-8 prose prose-amber prose-sm max-w-none flex-1" dangerouslySetInnerHTML={{ __html: truncateDescription(event.description, 150) }} />
+                    
                     <Button
-                      className="mt-4"
                       onClick={() => {
                         setSelectedEvent(event);
                         setIsDialogOpen(true);
                       }}
+                      className="w-full bg-amber-500 hover:bg-amber-600 text-white rounded-xl py-6 font-semibold tracking-wide shadow-md hover:shadow-lg transition-all"
                     >
-                      Details
+                      Event Details
                     </Button>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               </motion.div>
             ))
           ) : (
             <div className="col-span-full text-center">
-              <Card className="p-8">
-                <p>No upcoming events to show.</p>
-              </Card>
+              <div className="p-12 border border-dashed border-gray-300 rounded-3xl bg-gray-50/50">
+                <p className="text-gray-500 text-lg">No upcoming events to show.</p>
+              </div>
             </div>
           )}
         </div>
       </section>
 
-      <section>
+      <section className="mt-24">
         <h2 className="text-3xl font-bold text-center mb-8">Past Events</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {pastEvents.length > 0 ? (
             pastEvents.map((event, index) => (
               <motion.div
                 key={event.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
+                className="h-full"
               >
-                <Card className="bg-gray-50">
-                  <CardHeader>
-                    <CardTitle>{event.name}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center text-gray-600 mb-2">
-                      <CalendarIcon className="w-4 h-4 mr-2" />
-                      <span suppressHydrationWarning>{new Date(event.date).toLocaleDateString()}</span>
+                <div className="h-full flex flex-col bg-gray-50 rounded-3xl border border-gray-200 overflow-hidden opacity-90 hover:opacity-100 transition-opacity duration-300">
+                  <div className="h-1 w-full bg-gray-300" />
+                  <div className="flex flex-col flex-1 p-8">
+                    <h3 className="text-xl font-bold text-gray-700 mb-6">{event.name}</h3>
+                    
+                    <div className="space-y-3 mb-6">
+                      <div className="flex items-center text-gray-500 font-medium text-sm">
+                        <CalendarIcon className="w-4 h-4 mr-3" />
+                        <span suppressHydrationWarning>{new Date(event.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                      </div>
+                      {event.location && (
+                        <div className="flex items-center text-gray-500 text-sm">
+                          <MapPinIcon className="w-4 h-4 mr-3" />
+                          <span>{event.location}</span>
+                        </div>
+                      )}
                     </div>
-                    {event.time && (
-                      <div className="flex items-center text-gray-600 mb-2">
-                        <ClockIcon className="w-4 h-4 mr-2" />
-                        <span>{event.time}</span>
-                      </div>
-                    )}
-                    {event.location && (
-                      <div className="flex items-center text-gray-600 mb-4">
-                        <MapPinIcon className="w-4 h-4 mr-2" />
-                        <span>{event.location}</span>
-                      </div>
-                    )}
-                    <div className="prose prose-sm max-w-none mb-4" dangerouslySetInnerHTML={{ __html: truncateDescription(event.description, 150) }} />
+                    
+                    <div className="text-gray-500 leading-relaxed mb-8 prose prose-sm max-w-none flex-1 opacity-80" dangerouslySetInnerHTML={{ __html: truncateDescription(event.description, 150) }} />
+                    
                     <Button
-                      className="mt-4"
+                      variant="outline"
                       onClick={() => {
                         setSelectedEvent(event);
                         setIsDialogOpen(true);
                       }}
+                      className="w-full rounded-xl py-6 font-medium text-gray-600 border-gray-300 hover:bg-gray-100"
                     >
-                      Details
+                      View Past Details
                     </Button>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               </motion.div>
             ))
           ) : (
             <div className="col-span-full text-center">
-              <Card className="p-8 bg-gray-50">
-                <p>No past events to show.</p>
-              </Card>
+              <div className="p-12 border border-dashed border-gray-200 rounded-3xl bg-gray-50/30">
+                <p className="text-gray-400 text-lg">No past events to show.</p>
+              </div>
             </div>
           )}
         </div>
@@ -230,7 +265,8 @@ export function EventsList({ upcomingEvents, pastEvents }: EventsListProps) {
           </DialogContent>
         </Dialog>
       )}
+      </div>
     </motion.div>
-      </>
+    </>
   );
 }

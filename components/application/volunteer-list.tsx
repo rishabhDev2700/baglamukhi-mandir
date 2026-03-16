@@ -1,242 +1,140 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useState } from "react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import Image from "next/image";
+import { Phone } from "lucide-react";
 
-// Note: This is a placeholder type. You should generate types from your Payload schema.
-export type Volunteer = {
+export type TempleManager = {
   id: string;
   name: string;
-  email: string;
-  phone?: string;
-  interests?: string;
-  availability?: string;
+  role?: string;
+  phone: string;
+  photo?: {
+    url: string;
+    alt: string;
+  };
 };
 
-type VolunteerListProps = {
-  volunteers: Volunteer[];
+type TempleManagersProps = {
+  managers: TempleManager[];
 };
 
-const formSchema = z.object({
-  fullName: z.string().min(2, {
-    message: "Full name must be at least 2 characters.",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-  message: z.string().optional(),
-  phone: z.string().optional(),
-  interests: z.string().optional(),
-});
+// Keep old export name for backward compat
+export type Volunteer = TempleManager;
 
-export function VolunteerList({ volunteers }: VolunteerListProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmittedSuccessfully, setIsSubmittedSuccessfully] = useState(false);
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      fullName: "",
-      email: "",
-      message: "",
-      phone: "",
-      interests: "",
-    },
-  });
-
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsSubmitting(true);
-    setIsSubmittedSuccessfully(false);
-
-    const response = await fetch("/api/submit-form", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        collection: "volunteers", // Specify the collection to save to
-        data: {
-          name: values.fullName, // Map fullName to name for Payload
-          email: values.email,
-          message: values.message,
-          phone: values.phone,
-          interests: values.interests,
-        },
-      }),
-    });
-
-    if (response.ok) {
-      setIsSubmittedSuccessfully(true);
-      form.reset(); // Clear form fields
-    } else {
-      console.error("Form submission failed:", response.statusText);
-      // Handle error, maybe show an error message to the user
-    }
-
-    setIsSubmitting(false);
-  }
-
+export function VolunteerList({ managers }: TempleManagersProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="container mx-auto px-4 py-24"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+      className="min-h-screen"
     >
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Join Our Volunteer Team</h1>
-        <p className="text-lg text-gray-700 mb-12">
-          Be a part of our dedicated team and contribute to the temple&apos;s activities and community service.
-        </p>
+      {/* Hero Banner */}
+      <div className="relative pt-40 pb-24 px-4 overflow-hidden min-h-[40vh] flex flex-col justify-center">
+       <Image src="/temple.jpeg" alt="Volunteer Banner" fill className="object-cover brightness-50" />
+        <div className="relative z-10 max-w-3xl mx-auto text-center">
+          <motion.p
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-yellow-400 uppercase tracking-widest text-sm font-semibold mb-3 drop-shadow-md"
+          >
+            Shri Baglamukhi Mandir
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg"
+          >
+            Our Temple Team
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.6 }}
+            className="font-bold text-amber-100 text-lg drop-shadow-md"
+          >
+            Meet the dedicated individuals who oversee and manage the temple for our community.
+          </motion.p>
+        </div>
       </div>
 
-      <section className="mb-16">
-        <h2 className="text-3xl font-bold text-center mb-8">Our Volunteers</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {volunteers.length > 0 ? (
-            volunteers.map((volunteer, index) => (
-              <motion.div
-                key={volunteer.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
-              >
-                <Card className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                  <CardHeader className="items-center">
-                    <Avatar className="w-24 h-24 mb-4 mx-auto">
-                      {/* Avatar image and fallback will need to be updated to fetch from media collection if available */}
-                      <AvatarFallback>{volunteer.name.charAt(0)}</AvatarFallback>
-                    </Avatar>
-                    <CardTitle className="text-center text-xl">{volunteer.name}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="text-center">
-                    {/* Role and bio are not directly from Payload 'volunteers' collection fields */}
-                    <p className="text-gray-500 mt-2">Email: {volunteer.email}</p>
-                    {volunteer.phone && <p className="text-gray-500">Phone: {volunteer.phone}</p>}
-                    {volunteer.interests && <p className="text-gray-500">Interests: {volunteer.interests}</p>}
-                    {volunteer.availability && <p className="text-gray-500">Availability: {volunteer.availability}</p>}
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))
-          ) : (
-            <div className="col-span-full text-center">
-              <Card className="p-8">
-                <p>No volunteers to show.</p>
-              </Card>
+      {/* Managers Grid */}
+      <div className="bg-amber-50/30 py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          {managers.length === 0 ? (
+            <div className="text-center py-16 text-gray-500 text-lg">
+              No contacts available at this time. Please check back soon.
             </div>
-          )}
-        </div>
-      </section>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {managers.map((manager, index) => (
+                <motion.div
+                  key={manager.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ y: -6 }}
+                  className="group"
+                >
+                  <div className="relative bg-white rounded-3xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-amber-100">
+                    {/* Top accent bar */}
+                    <div className="h-1.5 w-full bg-linear-to-r from-yellow-500 via-amber-400 to-yellow-600" />
 
-      <section>
-        <h2 className="text-3xl font-bold text-center mb-8">Become a Volunteer</h2>
-        <div className="max-w-2xl mx-auto">
-          {isSubmittedSuccessfully ? (
-            <div className="p-4 bg-green-100 text-green-700 rounded-md text-center">
-              Thank you for your interest! We will get back to you soon.
+                    <div className="px-8 py-10 flex flex-col items-center text-center">
+                      {/* Photo */}
+                      <div className="relative w-32 h-32 rounded-full overflow-hidden ring-4 ring-amber-200 mb-5 shadow-lg">
+                        {manager.photo?.url ? (
+                          <Image
+                            src={manager.photo.url}
+                            alt={manager.photo.alt || manager.name}
+                            fill
+                            className="object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-linear-to-br from-amber-200 to-yellow-400 flex items-center justify-center">
+                            <span className="text-4xl font-bold text-amber-800">
+                              {manager.name.charAt(0).toUpperCase()}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Name */}
+                      <h2 className="text-xl font-bold text-gray-900 mb-1">
+                        {manager.name}
+                      </h2>
+
+                      {/* Role */}
+                      {manager.role && (
+                        <p className="text-sm text-amber-700 font-medium mb-4 uppercase tracking-wide">
+                          {manager.role}
+                        </p>
+                      )}
+
+                      {/* Divider */}
+                      <div className="w-12 h-0.5 bg-amber-200 rounded-full mb-4" />
+
+                      {/* Phone */}
+                      <a
+                        href={`tel:${manager.phone}`}
+                        className="inline-flex items-center gap-2 text-gray-700 hover:text-amber-700 transition-colors duration-200 group/phone"
+                      >
+                        <span className="w-8 h-8 rounded-full bg-amber-100 group-hover/phone:bg-amber-200 flex items-center justify-center transition-colors">
+                          <Phone className="w-4 h-4 text-amber-700" />
+                        </span>
+                        <span className="font-medium">{manager.phone}</span>
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
             </div>
-          ) : (
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                <FormField
-                  control={form.control}
-                  name="fullName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Full Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Your Name" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input placeholder="your.email@example.com" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Phone Number (Optional)</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Your phone number" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="interests"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Interests (Optional)</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Tell us about your interests in volunteering"
-                          className="resize-none"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Message (Optional)</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Tell us why you want to volunteer"
-                          className="resize-none"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" className="w-full" disabled={isSubmitting}>
-                  {isSubmitting ? "Submitting..." : "Submit"}
-                </Button>
-              </form>
-            </Form>
           )}
         </div>
-      </section>
+      </div>
     </motion.div>
   );
 }

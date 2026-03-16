@@ -1,6 +1,7 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { buildConfig } from 'payload'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import sharp from 'sharp'
 
 // Collections
@@ -18,6 +19,7 @@ import { Header } from './payload/globals/Header'
 import { Footer } from './payload/globals/Footer'
 import { Gallery } from './payload/globals/Gallery'
 import { DailyTimetable } from './payload/globals/DailyTimetable'
+import { HomePageConfig } from './payload/globals/HomePage'
 import path from 'path'
 import { fileURLToPath } from 'node:url'
 const filename = fileURLToPath(import.meta.url)
@@ -32,6 +34,18 @@ if (!process.env.PAYLOAD_SECRET) {
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
   editor: lexicalEditor(),
+  email: nodemailerAdapter({
+    defaultFromAddress: process.env.FROM_EMAIL || 'no-reply@example.com',
+    defaultFromName: 'Shri Baglamukhi Mandir',
+    transportOptions: {
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT) || 2525,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    },
+  }),
   plugins:[
     vercelBlobStorage({
       enabled:true,
@@ -60,6 +74,7 @@ export default buildConfig({
     Footer,
     Gallery,
     DailyTimetable,
+    HomePageConfig,
   ],
 
   // Your Payload secret - should be a complex and secure string, unguessable

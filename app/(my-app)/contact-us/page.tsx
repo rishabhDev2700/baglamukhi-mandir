@@ -79,18 +79,41 @@ export default function ContactUsPage() {
   }
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="container mx-auto px-4 py-16 mt-12"
+      className="min-h-screen"
     >
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
-        <p className="text-lg text-gray-700 mb-12">
+      {/* Hero */}
+      <div className="bg-linear-to-br from-amber-950 via-yellow-900 to-amber-800 pt-40 pb-20 px-4 text-center">
+        <motion.p
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-yellow-400 uppercase tracking-widest text-sm font-semibold mb-3"
+        >
+          Shri Baglamukhi Mandir
+        </motion.p>
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="text-4xl md:text-5xl font-bold text-white mb-4"
+        >
+          Contact Us
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35 }}
+          className="text-amber-200/80 text-lg max-w-2xl mx-auto"
+        >
           We would love to hear from you. Please fill out the form below or use the contact information provided.
-        </p>
+        </motion.p>
       </div>
+
+      <div className="container mx-auto px-4 py-16">
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         <motion.div
@@ -187,6 +210,7 @@ export default function ContactUsPage() {
             </div>
           </Card>
         </motion.div>
+      </div>
       </div>
     </motion.div>
   );

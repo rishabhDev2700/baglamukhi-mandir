@@ -106,12 +106,14 @@ export interface Config {
     footer: Footer;
     gallery: Gallery;
     'daily-timetable': DailyTimetable;
+    'home-page': HomePage;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     gallery: GallerySelect<false> | GallerySelect<true>;
     'daily-timetable': DailyTimetableSelect<false> | DailyTimetableSelect<true>;
+    'home-page': HomePageSelect<false> | HomePageSelect<true>;
   };
   locale: null;
   user: User & {
@@ -215,13 +217,56 @@ export interface PoojaBooking {
 export interface Volunteer {
   id: string;
   name: string;
-  email: string;
-  phone?: string | null;
-  interests?: string | null;
-  availability?: string | null;
-  message?: string | null;
+  role?: string | null;
+  phone: string;
+  photo?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: string;
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    card?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    tablet?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -274,51 +319,6 @@ export interface Page {
   } | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: string;
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-  sizes?: {
-    thumbnail?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    card?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    tablet?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -489,11 +489,9 @@ export interface PoojaBookingsSelect<T extends boolean = true> {
  */
 export interface VolunteersSelect<T extends boolean = true> {
   name?: T;
-  email?: T;
+  role?: T;
   phone?: T;
-  interests?: T;
-  availability?: T;
-  message?: T;
+  photo?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -712,6 +710,27 @@ export interface DailyTimetable {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page".
+ */
+export interface HomePage {
+  id: string;
+  /**
+   * Upload a background image for the main hero section of the home page. An ideal image is high-resolution and landscape orientation.
+   */
+  heroImage?: (string | null) | Media;
+  /**
+   * The main title displayed in the hero section.
+   */
+  heroTitle?: string | null;
+  /**
+   * A short description or subtitle displayed below the hero title.
+   */
+  heroDescription?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -770,6 +789,18 @@ export interface DailyTimetableSelect<T extends boolean = true> {
         activity?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page_select".
+ */
+export interface HomePageSelect<T extends boolean = true> {
+  heroImage?: T;
+  heroTitle?: T;
+  heroDescription?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

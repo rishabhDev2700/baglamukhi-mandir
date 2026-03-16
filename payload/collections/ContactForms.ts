@@ -1,9 +1,13 @@
 import { CollectionConfig } from 'payload'
+import { sendEmail } from './ContactForms/hooks/sendEmail'
 
 export const ContactForms: CollectionConfig = {
   slug: 'contact-forms',
   admin: {
     useAsTitle: 'subject',
+  },
+  hooks: {
+    afterChange: [sendEmail],
   },
   fields: [
     {

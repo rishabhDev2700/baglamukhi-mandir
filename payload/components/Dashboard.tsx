@@ -16,7 +16,7 @@ async function Dashboard() {
 
   const stats = [
     { label: 'Pooja Bookings', value: poojaBookings.totalDocs, href: '/admin/collections/pooja-bookings' },
-    { label: 'Volunteers', value: volunteers.totalDocs, href: '/admin/collections/volunteers' },
+    { label: 'Temple Managers', value: volunteers.totalDocs, href: '/admin/collections/volunteers' },
     { label: 'Donations', value: donations.totalDocs, href: '/admin/collections/donations' },
     { label: 'Contact Forms', value: contactForms.totalDocs, href: '/admin/collections/contact-forms' },
   ];

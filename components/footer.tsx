@@ -56,7 +56,7 @@ export function Footer({ copyright, socialLinks }: FooterProps) {
               </li>
               <li>
                 <Link href="/volunteer" className="hover:text-gray-300">
-                  Volunteer
+                  Our Team
                 </Link>
               </li>
               <li>

@@ -10,14 +10,31 @@ import { Gallery } from './gallery';
 import { Timetable } from './timetable';
 import Marquee from '../marquee';
 
-export function HomePage() {
+export function HomePage({ 
+  heroImageUrl, 
+  heroImageAlt,
+  heroTitle, 
+  heroDescription 
+}: { 
+  heroImageUrl?: string, 
+  heroImageAlt?: string,
+  heroTitle?: string, 
+  heroDescription?: string 
+}) {
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   return (
     <main className='relative'>
       <div className="relative h-screen w-full overflow-hidden">
         <motion.div style={{ y }} className="absolute inset-0">
-          <Image className='w-full h-full object-cover' src="/hero.jpg" width={10000} height={10000} quality={75} alt="baglamukhi mata mandir" />
+          <Image 
+            className='w-full h-full object-cover' 
+            src={heroImageUrl || "/temple.jpeg"} 
+            width={10000} 
+            height={10000} 
+            quality={75} 
+            alt={heroImageAlt || "baglamukhi mata mandir"} 
+          />
           <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent" />
         </motion.div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white p-4">
@@ -27,7 +44,7 @@ export function HomePage() {
             transition={{ duration: 0.8 }}
             className='font-main font-bold text-4xl md:text-7xl text-yellow-400 drop-shadow-lg'
           >
-            Shri Baglamukhi Mandir
+            {heroTitle || "Shri Baglamukhi Mandir"}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 50 }}
@@ -35,7 +52,7 @@ export function HomePage() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="mt-4 text-lg md:text-2xl max-w-2xl drop-shadow-md"
           >
-            A divine place to find peace and seek blessings. Join us for daily poojas and special events.
+            {heroDescription || "A divine place to find peace and seek blessings. Join us for daily poojas and special events."}
           </motion.p>
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}

@@ -12,25 +12,20 @@ export const Volunteers: CollectionConfig = {
       required: true,
     },
     {
-      name: 'email',
-      type: 'email',
-      required: true,
+      name: 'role',
+      label: 'Role / Title',
+      type: 'text',
     },
     {
       name: 'phone',
+      label: 'Contact Number',
       type: 'text',
+      required: true,
     },
     {
-      name: 'interests',
-      type: 'textarea',
-    },
-    {
-      name: 'availability',
-      type: 'text',
-    },
-    {
-      name: 'message',
-      type: 'textarea',
+      name: 'photo',
+      type: 'upload',
+      relationTo: 'media',
     },
   ],
 }
