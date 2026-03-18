@@ -2,7 +2,7 @@ import { getPayloadClient } from '@/lib/payload'
 import { PoojaBookingForm } from '@/components/application/pooja-booking-form'
 import { PoojaOption } from '@/payload-types'
 import { serializeLexicalToHtml } from '@/lib/richtext'
-
+export const dynamic = 'force-dynamic';
 async function Page() {
   const payload = await getPayloadClient()
 

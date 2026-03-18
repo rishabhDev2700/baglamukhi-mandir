@@ -2,7 +2,7 @@ import { getPayloadClient } from '@/lib/payload'
 import { EventsList, type Event } from '@/components/application/events-list'
 import { type Event as PayloadEvent } from '@/payload-types'
 import { serializeLexicalToHtml } from '@/lib/richtext' // Import the new serializer
-
+export const dynamic = 'force-dynamic';
 async function EventsPage() {
   const payload = await getPayloadClient()
 
