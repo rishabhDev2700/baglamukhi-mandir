@@ -27,7 +27,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
     <html lang="en">
       <body>
         <Navbar navLinks={header.navItems ?? []} />
-        <main className="flex-grow">
+        <main className="grow">
           <PageTransition>{children}</PageTransition>
         </main>
         <Footer copyright={footer.copyright ?? ''} socialLinks={footer.socialLinks ?? []} />

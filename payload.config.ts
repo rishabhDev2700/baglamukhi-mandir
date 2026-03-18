@@ -35,7 +35,7 @@ export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
   editor: lexicalEditor(),
   email: nodemailerAdapter({
-    defaultFromAddress: process.env.FROM_EMAIL || 'no-reply@example.com',
+    defaultFromAddress: process.env.FROM_EMAIL || 'no-reply@brainshift.in',
     defaultFromName: 'Shri Baglamukhi Mandir',
     transportOptions: {
       host: process.env.SMTP_HOST,

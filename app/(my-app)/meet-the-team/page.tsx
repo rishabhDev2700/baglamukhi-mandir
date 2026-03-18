@@ -1,6 +1,6 @@
 import { getPayloadClient } from '@/lib/payload'
 import { VolunteerList, type TempleManager } from '@/components/application/volunteer-list'
-
+export const dynamic = 'force-dynamic';
 async function VolunteerPage() {
   const payload = await getPayloadClient()
 
