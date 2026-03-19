@@ -1,5 +1,9 @@
 import { CollectionConfig } from 'payload'
 
+import { RichText } from '../blocks/RichText'
+import { Card } from '../blocks/Card'
+import { Columns } from '../blocks/Columns'
+
 export const Pages: CollectionConfig = {
   slug: 'pages',
   admin: {
@@ -18,8 +22,9 @@ export const Pages: CollectionConfig = {
       unique: true,
     },
     {
-      name: 'content',
-      type: 'richText',
+      name: 'layout',
+      type: 'blocks',
+      blocks: [RichText, Card, Columns],
     },
   ],
 }
