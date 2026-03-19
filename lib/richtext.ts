@@ -33,6 +33,18 @@ function convertNodeToHtml(node: RichTextNode): string {
     const childrenHtml = node.children.map(convertNodeToHtml).join('');
     return `<li>${childrenHtml}</li>`;
   }
+  if (node.type === 'link' && node.children) {
+    const childrenHtml = node.children.map(convertNodeToHtml).join('');
+    return `<a href="${(node as any).fields?.url || ''}" target="${(node as any).fields?.newTab ? '_blank' : '_self'}" class="text-red-500 hover:underline">${childrenHtml}</a>`;
+  }
+  if (node.type === 'upload' && (node as any).value) {
+    const media = (node as any).value;
+    const url = typeof media === 'object' ? media.url : '';
+    const alt = typeof media === 'object' ? media.alt : '';
+    if (url) {
+      return `<img src="${url}" alt="${alt}" class="my-8 rounded-lg shadow-md w-full h-auto" />`;
+    }
+  }
   // This is a basic serializer. For a full-featured one, you would need to handle
   // all Lexical node types (link, image, etc.)
   return '';
