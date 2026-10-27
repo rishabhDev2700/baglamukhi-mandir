@@ -559,14 +559,14 @@ export function BaalDharmaProgram() {
             </p>
 
             <div className="text-center mt-10">
-              <Link href="/contact-us">
+              <a href="mailto:ChandideviBaglamukhi@gmail.com">
                 <Button
                   size="lg"
                   className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold"
                 >
                   Enquire About Registration
                 </Button>
-              </Link>
+              </a>
             </div>
           </motion.div>
         </div>

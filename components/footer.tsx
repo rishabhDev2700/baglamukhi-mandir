@@ -59,11 +59,6 @@ export function Footer({ copyright, socialLinks }: FooterProps) {
                   Our Team
                 </Link>
               </li>
-              <li>
-                <Link href="/contact-us" className="hover:text-gray-300">
-                  Contact Us
-                </Link>
-              </li>
             </ul>
           </div>
           <div>
